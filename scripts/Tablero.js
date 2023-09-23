@@ -8,6 +8,7 @@ class Tablero {
     this.posicion = createVector(MARGEN_TABLERO, MARGEN_TABLERO);
     this.tablero = [];
     this.inicializarTablero();
+    this.memorizarTablero();
   }
 
   inicializarTablero() {
@@ -19,6 +20,15 @@ class Tablero {
     }
   }
 
+  memorizarTablero(x, y, letra) {
+    if (this.esPosicionValida(createVector(x, y))) {
+      if (!this.tablero[x]) {
+        this.tablero[x] = [];
+      }
+      this.tablero[x][y] = letra;
+    }
+  }
+  
   esPosicionValida(posicion) {
     return (
       posicion.x >= 0 &&
