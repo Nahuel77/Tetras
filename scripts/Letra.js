@@ -3,6 +3,7 @@ class Letra {
     this.posicion = createVector(3, 9);
     this.bolsa = bolsa;
     this.letra = this.bolsa.obtenerLetraAleatoria();
+    //this.moviendoArriba = false;
   }
 
   moverDerecha() {
@@ -19,10 +20,13 @@ class Letra {
 
   moverArriba(tablero) {
     let nuevaPosicion = createVector(this.posicion.x, this.posicion.y - 1);
-    if (tablero.esPosicionValida(nuevaPosicion)) {
-      if (!tablero.hayLetraEnPosicion(nuevaPosicion)) {
-        this.posicion = nuevaPosicion;
-      }
+
+    while (
+      tablero.esPosicionValida(nuevaPosicion) &&
+      !tablero.hayLetraEnPosicion(nuevaPosicion)
+    ) {
+      this.posicion = nuevaPosicion;
+      nuevaPosicion = createVector(this.posicion.x, this.posicion.y - 1);
     }
   }
 
@@ -30,7 +34,13 @@ class Letra {
     push();
     fill("#AA284B");
     let coord = tablero.coordenada(this.posicion.x, this.posicion.y);
-    rect(coord.x+3, coord.y+3, tablero.lado_celda-6, tablero.lado_celda-6, 8);
+    rect(
+      coord.x + 3,
+      coord.y + 3,
+      tablero.lado_celda - 6,
+      tablero.lado_celda - 6,
+      8
+    );
     textSize(32);
     fill(255);
     textAlign(CENTER, CENTER);
