@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#content{
+    background-image: url('gala_0.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: row;
+}
+
+#juego{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#marcador{
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    width: 50vw;
+    height: 50vh;
+    margin: 5rem;
+    padding: 2rem;
+    background-color: rgba(0,0,0,0.3);
+}

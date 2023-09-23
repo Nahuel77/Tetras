@@ -1,0 +1,31 @@
+class Letra {
+  constructor() {
+    this.posicion = createVector(3, 9);
+    this.bolsa = bolsa;
+    this.letra = this.bolsa.obtenerLetraAleatoria();
+  }
+
+  moverDerecha() {
+    if (this.posicion.x < 6) {
+      this.posicion.x++;
+    }
+  }
+
+  moverIzquierda() {
+    if (this.posicion.x > 0) {
+      this.posicion.x--;
+    }
+  }
+
+  dibujar() {
+    push();
+    fill("#AA284B");
+    let coord = tablero.coordenada(this.posicion.x, this.posicion.y);
+    rect(coord.x, coord.y, tablero.lado_celda, tablero.lado_celda, 8);
+    textSize(32);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    text(this.letra, coord.x + tablero.lado_celda / 2, coord.y + tablero.lado_celda / 2)
+    pop();
+  }
+}
