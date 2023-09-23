@@ -3,7 +3,6 @@ class Letra {
     this.posicion = createVector(3, 9);
     this.bolsa = bolsa;
     this.letra = this.bolsa.obtenerLetraAleatoria();
-    //this.moviendoArriba = false;
   }
 
   moverDerecha() {

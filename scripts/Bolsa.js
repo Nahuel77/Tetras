@@ -24,6 +24,9 @@ class Bolsa {
   obtenerLetraAleatoria() {
     const lista = Math.random() < 0.5 ? this.vocal : this.consonante;
     const indiceAleatorio = Math.floor(Math.random() * lista.length);
-    return lista[indiceAleatorio];
+    const letraAleatoria = lista[indiceAleatorio];
+    lista.splice(indiceAleatorio, 1);
+
+    return letraAleatoria;
   }
 }
