@@ -29,6 +29,12 @@ class Letra {
     }
   }
 
+  crearNuevaLetra() {
+    this.posicion = createVector(3, 9);
+    this.disparada = false;
+    this.letra = this.bolsa.obtenerLetraAleatoria();
+  }
+
   dibujar() {
     push();
     fill("#AA284B");
