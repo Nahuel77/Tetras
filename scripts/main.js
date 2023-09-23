@@ -38,4 +38,7 @@ function keyEventsLetras() {
   if (keyIsDown(LEFT_ARROW)) {
     letra.moverIzquierda();
   }
+  if (keyCode === 32) {
+    letra.moverArriba(tablero);
+  }
 }

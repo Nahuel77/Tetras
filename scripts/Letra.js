@@ -17,6 +17,15 @@ class Letra {
     }
   }
 
+  moverArriba(tablero) {
+    let nuevaPosicion = createVector(this.posicion.x, this.posicion.y - 1);
+    if (tablero.esPosicionValida(nuevaPosicion)) {
+      if (!tablero.hayLetraEnPosicion(nuevaPosicion)) {
+        this.posicion = nuevaPosicion;
+      }
+    }
+  }
+
   dibujar() {
     push();
     fill("#AA284B");
@@ -25,7 +34,11 @@ class Letra {
     textSize(32);
     fill(255);
     textAlign(CENTER, CENTER);
-    text(this.letra, coord.x + tablero.lado_celda / 2, coord.y + tablero.lado_celda / 2)
+    text(
+      this.letra,
+      coord.x + tablero.lado_celda / 2,
+      coord.y + tablero.lado_celda / 2
+    );
     pop();
   }
 }

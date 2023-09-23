@@ -28,5 +28,11 @@
     height: 50vh;
     margin: 5rem;
     padding: 2rem;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.6);
+}
+
+#marcador h2{
+    color: white;
+    font-size: 2rem;
+    text-shadow: 2px 2px 3px #00F;
 }
