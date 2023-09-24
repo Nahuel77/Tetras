@@ -2,6 +2,7 @@ class Letra {
   constructor() {
     this.posicion = createVector(3, 9);
     this.bolsa = bolsa;
+    this.caracter;
     this.letra = this.bolsa.obtenerLetraAleatoria();
   }
 

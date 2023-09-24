@@ -26,9 +26,10 @@ class Tablero {
         this.tablero[x] = [];
       }
       this.tablero[x][y] = letra;
+      console.log(letra);
     }
   }
-  
+
   esPosicionValida(posicion) {
     return (
       posicion.x >= 0 &&

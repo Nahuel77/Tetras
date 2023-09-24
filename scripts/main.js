@@ -37,11 +37,10 @@ function keyEventsLetras() {
   }
   if (keyIsDown(LEFT_ARROW)) {
     letra.moverIzquierda();
-    tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra);
   }
   if (keyIsDown(32)) {
     letra.moverArriba(tablero);
-    tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra);
+    tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra.letra);
     console.log(tablero.tablero)
     letra.crearNuevaLetra();
   }
