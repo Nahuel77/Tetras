@@ -40,7 +40,7 @@ class Tablero {
         const letra = this.tablero[columna][fila];
         if (letra !== null) {
           let coord = this.coordenada(columna, fila);
-          fill("#AA284B");
+          fill("gray");
           rect(
             coord.x + 3,
             coord.y + 3,

@@ -1,6 +1,7 @@
 const MARGEN_TABLERO = 20;
 let regulador_velocidad_teclas = 0;
 let letra;
+let barraHabilitada = true;
 
 function mostrarPalabrasEnMarcador(palabras) {
   const marcador = document.getElementById("marcador");
@@ -56,10 +57,14 @@ function keyEventsLetras() {
   if (keyIsDown(LEFT_ARROW)) {
     letra.moverIzquierda();
   }
-  if (keyIsDown(32)) {
+  if (barraHabilitada && keyIsDown(32)) {
     letra.moverArriba(tablero);
     tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra.letra);
     console.log(tablero.tablero);
     letra.crearNuevaLetra();
+    barraHabilitada = false;
+    setTimeout(() => {
+      barraHabilitada = true;
+    }, 500);
   }
 }
