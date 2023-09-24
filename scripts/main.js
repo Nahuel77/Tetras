@@ -2,20 +2,37 @@ const MARGEN_TABLERO = 20;
 let regulador_velocidad_teclas = 0;
 let letra;
 
-function setup() {
+function mostrarPalabrasEnMarcador(palabras) {
+  const marcador = document.getElementById("marcador");
+  const listaPalabras = document.getElementById("listaPalabras");
+
+  listaPalabras.innerHTML = "";
+
+  palabras.forEach((palabra) => {
+    const li = document.createElement("li");
+    li.textContent = palabra;
+    listaPalabras.appendChild(li);
+  });
+
+  marcador.appendChild(listaPalabras);
+}
+
+async function setup() {
   let canvas = createCanvas(900, 700);
   canvas.parent("juego");
   tablero = new Tablero();
   palabras = new Palabras();
-  palabras.cargarPalabrasDesdeJSON().then(() => {
-    console.log(palabras);
-    bolsa = new Bolsa(palabras);
-    letra = new Letra();
-    resizeCanvas(
-      tablero.ancho + MARGEN_TABLERO * 2,
-      tablero.alto + MARGEN_TABLERO * 2
-    );
-  });
+
+  await palabras.cargarPalabrasDesdeJSON();
+  console.log(palabras);
+
+  bolsa = new Bolsa(palabras);
+  letra = new Letra();
+  resizeCanvas(
+    tablero.ancho + MARGEN_TABLERO * 2,
+    tablero.alto + MARGEN_TABLERO * 2
+  );
+  mostrarPalabrasEnMarcador(palabras.listaPalabras);
 }
 
 function draw() {
@@ -42,7 +59,7 @@ function keyEventsLetras() {
   if (keyIsDown(32)) {
     letra.moverArriba(tablero);
     tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra.letra);
-    console.log(tablero.tablero)
+    console.log(tablero.tablero);
     letra.crearNuevaLetra();
   }
 }

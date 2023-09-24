@@ -27,7 +27,6 @@ class Tablero {
         this.tablero[x] = [];
       }
       this.tablero[x][y] = letra;
-      console.log(this.tablero[0]);
     }
   }
 

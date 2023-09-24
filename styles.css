@@ -4,12 +4,18 @@
 }
 
 #content{
-    background-image: url('gala_0.jpg');
+    /*background-image: url('gala_0.jpg');*/
+    background-color: rgb(18, 12, 51);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     display: flex;
     flex-direction: row;
+    
+}
+
+#defaultCanvas0{
+    box-shadow: 0px 0px 20px 8px #00F;
 }
 
 #juego{
@@ -18,21 +24,35 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
+    
 }
 
 #marcador{
     display: flex;
-    justify-content: center;
-    align-items: top;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
     width: 50vw;
     height: 50vh;
     margin: 5rem;
     padding: 2rem;
     background-color: rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 20px 8px #00F;
 }
 
 #marcador h2{
     color: white;
     font-size: 2rem;
     text-shadow: 2px 2px 3px #00F;
+}
+
+#listaPalabras{
+    list-style: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    padding: 1rem 5rem;
+    background-color: rgba(0,0,0,0.8);
+    font-style: italic;
+    box-shadow: 0px 0px 20px 8px #00F;
 }
