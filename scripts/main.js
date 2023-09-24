@@ -25,6 +25,7 @@ function draw() {
     letra.dibujar();
   }
   keyEventsLetras();
+  tablero.actualizarTablero();
 }
 
 function keyEventsLetras() {

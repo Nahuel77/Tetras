@@ -9,6 +9,7 @@ class Tablero {
     this.tablero = [];
     this.inicializarTablero();
     this.memorizarTablero();
+    this.actualizarTablero();
   }
 
   inicializarTablero() {
@@ -26,8 +27,38 @@ class Tablero {
         this.tablero[x] = [];
       }
       this.tablero[x][y] = letra;
-      console.log(letra);
+      console.log(this.tablero[0]);
     }
+  }
+
+  actualizarTablero() {
+    push();
+    textSize(32);
+    textAlign(CENTER, CENTER);
+
+    for (let columna = 0; columna < this.columnas; columna++) {
+      for (let fila = 0; fila < this.filas; fila++) {
+        const letra = this.tablero[columna][fila];
+        if (letra !== null) {
+          let coord = this.coordenada(columna, fila);
+          fill("#AA284B");
+          rect(
+            coord.x + 3,
+            coord.y + 3,
+            this.lado_celda - 6,
+            this.lado_celda - 6,
+            8
+          );
+          fill(255);
+          text(
+            letra,
+            coord.x + this.lado_celda / 2,
+            coord.y + this.lado_celda / 2
+          );
+        }
+      }
+    }
+    pop();
   }
 
   esPosicionValida(posicion) {
