@@ -27,7 +27,9 @@ async function setup() {
 
   await palabras.cargarPalabrasDesdeJSON();
   await buscarPalabras.buscarPalabraMasLarga(palabras);
-  
+  await buscarPalabras.createGAD();
+  await buscarPalabras.cargarGAD(palabras);
+
   bolsa = new Bolsa(palabras);
   letra = new Letra();
   resizeCanvas(
