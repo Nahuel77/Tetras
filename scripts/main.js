@@ -23,10 +23,11 @@ async function setup() {
   canvas.parent("juego");
   tablero = new Tablero();
   palabras = new Palabras();
+  buscarPalabras = new BuscaPalabras(palabras);
 
   await palabras.cargarPalabrasDesdeJSON();
-  console.log(palabras);
-
+  await buscarPalabras.buscarPalabraMasLarga(palabras);
+  
   bolsa = new Bolsa(palabras);
   letra = new Letra();
   resizeCanvas(
