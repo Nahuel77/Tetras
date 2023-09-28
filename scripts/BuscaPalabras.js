@@ -42,16 +42,39 @@ class BuscaPalabras {
           this.GAD[columna][i] = palabra[columna];
         }
       });
-      //console.log(this.GAD);
     } catch (error) {
       console.error("Error al cargar el GAD", error);
     }
   }
 
-  buscarEnGAD(x, y) {}
+  async buscarEnGAD(valor) {
+    try {
+      console.log(valor);
+      const coordenadasEncontradas = [];
+
+      for (let letra of valor) {
+        letra = letra.toLowerCase(); // Convertir la letra a minúscula para hacer una búsqueda sin distinción de mayúsculas y minúsculas
+
+        for (let y = 0; y < this.filasGAD; y++) {
+          for (let x = 0; x < this.columnasGAD; x++) {
+            const elementoGAD = this.GAD[x][y];
+
+            if (elementoGAD !== null && elementoGAD.toLowerCase() === letra) {
+              coordenadasEncontradas.push({ x, y });
+            }
+          }
+        }
+      }
+      console.log(coordenadasEncontradas);
+      return coordenadasEncontradas;
+    } catch (error) {
+      console.error("Problema al buscar en GAD: ", error)
+    }
+  }
 
   async BFS(x, y) {
     try {
+      console.log(this.GAD);
       const cola = [];
       cola.push({ x, y });
       while (cola.length > 0) {
@@ -79,8 +102,8 @@ class BuscaPalabras {
           ) {
             valor.push(tablero.tablero[x + 1][y]);
           }
-          if(valor.length!=0){
-            console.log(valor);
+          if (valor.length !== 0) {
+            this.buscarEnGAD(valor);
           }
         }
       }

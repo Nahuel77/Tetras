@@ -63,9 +63,7 @@ function keyEventsLetras() {
   if (barraHabilitada && keyIsDown(32)) {
     letra.moverArriba(tablero);
     tablero.memorizarTablero(letra.posicion.x, letra.posicion.y, letra.letra);
-    buscarPalabras.BFS(letra.posicion.x, letra.posicion.y)
-    buscarPalabras.buscarEnGAD(letra.posicion.x, letra.posicion.y, letra.letra);
-    //console.log(tablero.tablero);
+    buscarPalabras.BFS(letra.posicion.x, letra.posicion.y);
     letra.crearNuevaLetra();
     barraHabilitada = false;
     setTimeout(() => {
