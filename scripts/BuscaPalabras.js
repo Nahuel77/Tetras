@@ -53,25 +53,33 @@ class BuscaPalabras {
   async BFS(x, y) {
     try {
       const cola = [];
-      const visitado = new Set();
       cola.push({ x, y });
       while (cola.length > 0) {
         const { x, y } = cola.shift();
-        if (
-          x >= 0 &&
-          x <= this.columnasGAD &&
-          y >= 0 &&
-          y < this.filasGAD &&
-          !visitado.has(`${x}, ${y}`)
-        ) {   
-          visitado.add(`${x}, ${y}`);
-          cola.push({ x: x - 1, y });
-          cola.push({ x: x + 1, y });
-          cola.push({ x, y: y - 1 });
-          cola.push({ x, y: y + 1 });
-          if (tablero.tablero[x][y]!== null) {
-            const valor = [];
-            valor.push(tablero.tablero[x][y]);
+        if (x >= 0 && x < tablero.columnas && y >= 0 && y < tablero.filas) {
+          const valor = [];
+          if (
+            x - 1 >= 0 &&
+            tablero.tablero[x - 1][y] !== null &&
+            tablero.tablero[x - 1][y] != undefined
+          ) {
+            valor.push(tablero.tablero[x - 1][y]);
+          }
+          if (
+            y - 1 >= 0 &&
+            tablero.tablero[x][y - 1] !== null &&
+            tablero.tablero[x][y - 1] != undefined
+          ) {
+            valor.push(tablero.tablero[x][y - 1]);
+          }
+          if (
+            x + 1 < tablero.columnas &&
+            tablero.tablero[x + 1][y] !== null &&
+            tablero.tablero[x + 1][y] != undefined
+          ) {
+            valor.push(tablero.tablero[x + 1][y]);
+          }
+          if(valor.length!=0){
             console.log(valor);
           }
         }
