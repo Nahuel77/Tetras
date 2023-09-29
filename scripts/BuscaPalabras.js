@@ -80,9 +80,9 @@ class BuscaPalabras {
       cola.push({ x, y });
       while (cola.length > 0) {
         const { x, y } = cola.shift();
-        visitado.add(`${x},${y}`);
-        if (x >= 0 && x < tablero.columnas && y >= 0 && y < tablero.filas) {
+        if (x >= 0 && x < tablero.columnas && y >= 0 && y < tablero.filas ) {
           const valor = [];
+          visitado.add(`${x},${y}`);
           if (
             x - 1 >= 0 &&
             tablero.tablero[x - 1][y] !== null &&
@@ -100,7 +100,7 @@ class BuscaPalabras {
           if (
             y + 1 >= 0 &&
             tablero.tablero[x][y + 1] !== null &&
-            tablero.tablero[x][y + 1] != undefined
+            tablero.tablero[x][y + 1] != undefined && !visitado.has(`${x},${y + 1}`)
           ) {
             valor.push(tablero.tablero[x][y + 1]);
             if (y + 1 >= 0 && !visitado.has(`${x},${y + 1}`)) {
@@ -114,7 +114,7 @@ class BuscaPalabras {
           if (
             x + 1 < tablero.columnas &&
             tablero.tablero[x + 1][y] !== null &&
-            tablero.tablero[x + 1][y] != undefined
+            tablero.tablero[x + 1][y] != undefined && !visitado.has(`${x + 1},${y}`)
           ) {
             valor.push(tablero.tablero[x + 1][y]);
             if (x + 1 >= 0 && !visitado.has(`${x + 1},${y}`)) {
@@ -128,7 +128,7 @@ class BuscaPalabras {
           if (
             y - 1 >= 0 &&
             tablero.tablero[x][y - 1] !== null &&
-            tablero.tablero[x][y - 1] != undefined
+            tablero.tablero[x][y - 1] != undefined && !visitado.has(`${x},${y - 1}`)
           ) {
             valor.push(tablero.tablero[x][y - 1]);
             if (y - 1 >= 0 && !visitado.has(`${x},${y - 1}`)) {
