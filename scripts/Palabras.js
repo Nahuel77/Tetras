@@ -1,7 +1,7 @@
 class Palabras {
   constructor() {
     this.listaPalabras = [];
-    this.cantidadPalabras = 10;
+    this.cantidadPalabras = 5;
   }
 
   async cargarPalabrasDesdeJSON() {

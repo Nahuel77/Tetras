@@ -53,7 +53,7 @@ class BuscaPalabras {
       const coordenadasEncontradas = [];
 
       for (let letra of valor) {
-        letra = letra.toLowerCase(); // Convertir la letra a minúscula para hacer una búsqueda sin distinción de mayúsculas y minúsculas
+        letra = letra.toLowerCase();
 
         for (let y = 0; y < this.filasGAD; y++) {
           for (let x = 0; x < this.columnasGAD; x++) {
@@ -65,20 +65,22 @@ class BuscaPalabras {
           }
         }
       }
-      console.log(coordenadasEncontradas);
+      //console.log(coordenadasEncontradas);
       return coordenadasEncontradas;
     } catch (error) {
-      console.error("Problema al buscar en GAD: ", error)
+      console.error("Problema al buscar en GAD: ", error);
     }
   }
 
   async BFS(x, y) {
     try {
-      console.log(this.GAD);
+      //console.log(this.GAD);
       const cola = [];
+      const visitado = new Set();
       cola.push({ x, y });
       while (cola.length > 0) {
         const { x, y } = cola.shift();
+        visitado.add(`${x},${y}`);
         if (x >= 0 && x < tablero.columnas && y >= 0 && y < tablero.filas) {
           const valor = [];
           if (
@@ -87,13 +89,27 @@ class BuscaPalabras {
             tablero.tablero[x - 1][y] != undefined
           ) {
             valor.push(tablero.tablero[x - 1][y]);
+            if (x - 1 >= 0 && !visitado.has(`${x - 1},${y}`)) {
+              const newX = x - 1;
+              const newY = y;
+              cola.push({ x: newX, y: newY });
+              visitado.add(`${newX},${newY}`);
+              console.log(visitado);
+            }
           }
           if (
-            y - 1 >= 0 &&
-            tablero.tablero[x][y - 1] !== null &&
-            tablero.tablero[x][y - 1] != undefined
+            y + 1 >= 0 &&
+            tablero.tablero[x][y + 1] !== null &&
+            tablero.tablero[x][y + 1] != undefined
           ) {
-            valor.push(tablero.tablero[x][y - 1]);
+            valor.push(tablero.tablero[x][y + 1]);
+            if (y + 1 >= 0 && !visitado.has(`${x},${y + 1}`)) {
+              const newX = x;
+              const newY = y + 1;
+              cola.push({ x: newX, y: newY });
+              visitado.add(`${newX},${newY}`);
+              console.log("en y+: ", visitado);
+            }
           }
           if (
             x + 1 < tablero.columnas &&
@@ -101,6 +117,27 @@ class BuscaPalabras {
             tablero.tablero[x + 1][y] != undefined
           ) {
             valor.push(tablero.tablero[x + 1][y]);
+            if (x + 1 >= 0 && !visitado.has(`${x + 1},${y}`)) {
+              const newX = x + 1;
+              const newY = y;
+              cola.push({ x: newX, y: newY });
+              visitado.add(`${newX},${newY}`);
+              console.log(visitado);
+            }
+          }
+          if (
+            y - 1 >= 0 &&
+            tablero.tablero[x][y - 1] !== null &&
+            tablero.tablero[x][y - 1] != undefined
+          ) {
+            valor.push(tablero.tablero[x][y - 1]);
+            if (y - 1 >= 0 && !visitado.has(`${x},${y - 1}`)) {
+              const newX = x;
+              const newY = y - 1;
+              cola.push({ x: newX, y: newY });
+              visitado.add(`${newX},${newY}`);
+              console.log(visitado);
+            }
           }
           if (valor.length !== 0) {
             this.buscarEnGAD(valor);
