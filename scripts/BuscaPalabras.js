@@ -73,79 +73,60 @@ class BuscaPalabras {
   }
 
   async BFS(x, y) {
+    //entra valor x,y / 2,1 = "R"
     try {
-      //console.log(this.GAD);
       const cola = [];
       const visitado = new Set();
-      cola.push({ x, y });
+      cola.push({ x, y }); //entra 2,1 a la cola
       while (cola.length > 0) {
-        const { x, y } = cola.shift();
-        if (x >= 0 && x < tablero.columnas && y >= 0 && y < tablero.filas ) {
-          const valor = [];
-          visitado.add(`${x},${y}`);
-          if (
-            x - 1 >= 0 &&
-            tablero.tablero[x - 1][y] !== null &&
-            tablero.tablero[x - 1][y] != undefined
-          ) {
-            valor.push(tablero.tablero[x - 1][y]);
-            if (x - 1 >= 0 && !visitado.has(`${x - 1},${y}`)) {
-              const newX = x - 1;
-              const newY = y;
-              cola.push({ x: newX, y: newY });
-              visitado.add(`${newX},${newY}`);
-              console.log(visitado);
-            }
-          }
-          if (
-            y + 1 >= 0 &&
-            tablero.tablero[x][y + 1] !== null &&
-            tablero.tablero[x][y + 1] != undefined && !visitado.has(`${x},${y + 1}`)
-          ) {
-            valor.push(tablero.tablero[x][y + 1]);
-            if (y + 1 >= 0 && !visitado.has(`${x},${y + 1}`)) {
-              const newX = x;
-              const newY = y + 1;
-              cola.push({ x: newX, y: newY });
-              visitado.add(`${newX},${newY}`);
-              console.log("en y+: ", visitado);
-            }
-          }
-          if (
-            x + 1 < tablero.columnas &&
-            tablero.tablero[x + 1][y] !== null &&
-            tablero.tablero[x + 1][y] != undefined && !visitado.has(`${x + 1},${y}`)
-          ) {
-            valor.push(tablero.tablero[x + 1][y]);
-            if (x + 1 >= 0 && !visitado.has(`${x + 1},${y}`)) {
-              const newX = x + 1;
-              const newY = y;
-              cola.push({ x: newX, y: newY });
-              visitado.add(`${newX},${newY}`);
-              console.log(visitado);
-            }
-          }
-          if (
-            y - 1 >= 0 &&
-            tablero.tablero[x][y - 1] !== null &&
-            tablero.tablero[x][y - 1] != undefined && !visitado.has(`${x},${y - 1}`)
-          ) {
-            valor.push(tablero.tablero[x][y - 1]);
-            if (y - 1 >= 0 && !visitado.has(`${x},${y - 1}`)) {
-              const newX = x;
-              const newY = y - 1;
-              cola.push({ x: newX, y: newY });
-              visitado.add(`${newX},${newY}`);
-              console.log(visitado);
-            }
-          }
-          if (valor.length !== 0) {
-            this.buscarEnGAD(valor);
-          }
+        //si hay elemento en cola hace...
+        const valor = [];
+        const { x, y } = cola.shift(); //toma elemento en cola, 2,1 en este caso
+        visitado.add(`${x}, ${y}`); //agrega 2,1 a visitado
+        //comienza a verificar vecinos
+        if (
+          y - 1 >= 0 &&
+          tablero.tablero[x][y - 1] !== null &&
+          tablero.tablero[x][y - 1] != undefined &&
+          !visitado.has(`${x}, ${y - 1}`) //verifica que y:1-1 >=0, que tablero[2][0] no sea nulo ni indefinido y que 2,0 no haya sido visitado, entonces si cumple hace...
+        ) {
+          valor.push(tablero.tablero[x][y - 1]); // agrega "L" a valor, 2,0="L"
+          //cola.push({ x, y: y - 1 }); //agrega 2,0 a la cola
+        }
+        if (
+          x + 1 < tablero.columnas &&
+          tablero.tablero[x + 1][y] !== null &&
+          tablero.tablero[x + 1][y] != undefined &&
+          !visitado.has(`${x + 1}, ${y}`) //verifica 3,1 = "I" y hace...
+        ) {
+          valor.push(tablero.tablero[x + 1][y]); // agrega "I" a valor
+          //cola.push({ x: x + 1, y }); // agrega 3,1 a la cola
+        }
+        if (
+          y + 1 < tablero.filas &&
+          tablero.tablero[x][y + 1] !== null &&
+          tablero.tablero[x][y + 1] != undefined &&
+          !visitado.has(`${x}, ${y + 1}`) //no verifica para 2,2. Es nulo
+        ) {
+          valor.push(tablero.tablero[x][y + 1]);
+          //cola.push({ x, y: y + 1 });
+        }
+        if (
+          x - 1 >= 0 &&
+          tablero.tablero[x - 1][y] !== null &&
+          tablero.tablero[x - 1][y] != undefined &&
+          !visitado.has(`${x - 1}. ${y}`) //no verifica para 1,1, es nulo
+        ) {
+          valor.push(tablero.tablero[x - 1][y]);
+          //cola.push({ x: x - 1, y });
+        }
+        if (valor.length !== 0) {
+          this.buscarEnGAD(valor);
         }
       }
+      
     } catch (error) {
-      console.error("Error al recorrer el algoritmo BFS:", error);
+      console.log(error);
     }
   }
 }
