@@ -47,26 +47,39 @@ class BuscaPalabras {
     }
   }
 
-  async buscarEnGAD(valor) {
+  async buscarEnGAD(valor, x, y) {
+    console.log(this.GAD);
     try {
-      console.log(valor);
-      const coordenadasEncontradas = [];
+      console.log(valor, x, y, tablero.tablero[x][y]);
 
-      for (let letra of valor) {
-        letra = letra.toLowerCase();
+      const letraInicial = tablero.tablero[x][y].toLowerCase();
 
-        for (let y = 0; y < this.filasGAD; y++) {
-          for (let x = 0; x < this.columnasGAD; x++) {
-            const elementoGAD = this.GAD[x][y];
-
-            if (elementoGAD !== null && elementoGAD.toLowerCase() === letra) {
-              coordenadasEncontradas.push({ x, y });
+      for (let indexX = 0; indexX < this.filasGAD; indexX++) {
+        for (let indexY = 0; indexY < this.columnasGAD; indexY++) {
+          if (this.GAD[indexX][indexY] == letraInicial) {
+            console.log(
+              "Letra ",
+              letraInicial,
+              " encontrada en GAD ",
+              indexY,
+              indexX
+            ); //localiza la letra disparada en GAD
+            //a continuacion hace una suma y resta de la posicion Y para saber que letra la sucede y antesucede en la palabra
+            if (
+              indexX - 1 >= 0 &&
+              typeof this.GAD[indexX - 1][indexY] === "string"
+            ) {
+              console.log("Arriba", this.GAD[indexX - 1][indexY]);
+            }
+            if (
+              indexX + 1 <= this.filasGAD &&
+              typeof this.GAD[indexX + 1][indexY] === "string"
+            ) {
+              console.log("Abajo", this.GAD[indexX + 1][indexY]);
             }
           }
         }
       }
-      //console.log(coordenadasEncontradas);
-      return coordenadasEncontradas;
     } catch (error) {
       console.error("Problema al buscar en GAD: ", error);
     }
@@ -121,10 +134,9 @@ class BuscaPalabras {
           //cola.push({ x: x - 1, y });
         }
         if (valor.length !== 0) {
-          this.buscarEnGAD(valor);
+          this.buscarEnGAD(valor, x, y);
         }
       }
-      
     } catch (error) {
       console.log(error);
     }
