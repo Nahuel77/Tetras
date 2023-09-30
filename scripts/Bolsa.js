@@ -14,7 +14,7 @@ class Bolsa {
       letrasPalabra.forEach((letra) => {
         if (vocales.includes(letra)) {
           this.vocal.push(letra);
-        } else if (letra.match(/[A-Z]/i)) {
+        } else if (letra.match(/[A-ZÁÉÍÓÚÜÑa-záéíóúüñ]/i)) {
           this.consonante.push(letra);
         }
       });

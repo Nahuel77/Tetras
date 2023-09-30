@@ -48,34 +48,33 @@ class BuscaPalabras {
   }
 
   async buscarEnGAD(valor, x, y) {
-    console.log(this.GAD);
     try {
-      console.log(valor, x, y, tablero.tablero[x][y]);
-
       const letraInicial = tablero.tablero[x][y].toLowerCase();
 
       for (let indexX = 0; indexX < this.filasGAD; indexX++) {
         for (let indexY = 0; indexY < this.columnasGAD; indexY++) {
           if (this.GAD[indexX][indexY] == letraInicial) {
-            console.log(
-              "Letra ",
-              letraInicial,
-              " encontrada en GAD ",
-              indexY,
-              indexX
-            ); //localiza la letra disparada en GAD
-            //a continuacion hace una suma y resta de la posicion Y para saber que letra la sucede y antesucede en la palabra
             if (
               indexX - 1 >= 0 &&
-              typeof this.GAD[indexX - 1][indexY] === "string"
+              this.GAD[indexX - 1][indexY] != undefined &&
+              typeof this.GAD[indexX - 1][indexY] === "string" 
             ) {
-              console.log("Arriba", this.GAD[indexX - 1][indexY]);
+              valor.forEach(setXY => {
+                if (tablero.tablero[setXY.x][setXY.y].toLowerCase() === this.GAD[indexX - 1][indexY]) {
+                  console.log("aqui")//bfs(setXY.x, setXY.y)  aqui retomo mañana.!!!!!!!!!!
+                }
+              });
             }
             if (
               indexX + 1 <= this.filasGAD &&
+              this.GAD[indexX + 1][indexY] != undefined &&
               typeof this.GAD[indexX + 1][indexY] === "string"
             ) {
-              console.log("Abajo", this.GAD[indexX + 1][indexY]);
+              valor.forEach(setXY => {
+                if (tablero.tablero[setXY.x][setXY.y].toLowerCase() === this.GAD[indexX + 1][indexY]) {
+                  console.log("match")
+                }
+              });
             }
           }
         }
@@ -103,7 +102,7 @@ class BuscaPalabras {
           tablero.tablero[x][y - 1] != undefined &&
           !visitado.has(`${x}, ${y - 1}`) //verifica que y:1-1 >=0, que tablero[2][0] no sea nulo ni indefinido y que 2,0 no haya sido visitado, entonces si cumple hace...
         ) {
-          valor.push(tablero.tablero[x][y - 1]); // agrega "L" a valor, 2,0="L"
+          valor.push({ x, y: y - 1 }); // agrega "L" a valor, 2,0="L"
           //cola.push({ x, y: y - 1 }); //agrega 2,0 a la cola
         }
         if (
@@ -112,7 +111,7 @@ class BuscaPalabras {
           tablero.tablero[x + 1][y] != undefined &&
           !visitado.has(`${x + 1}, ${y}`) //verifica 3,1 = "I" y hace...
         ) {
-          valor.push(tablero.tablero[x + 1][y]); // agrega "I" a valor
+          valor.push({ x: x + 1, y }); // agrega "I" a valor
           //cola.push({ x: x + 1, y }); // agrega 3,1 a la cola
         }
         if (
@@ -121,7 +120,7 @@ class BuscaPalabras {
           tablero.tablero[x][y + 1] != undefined &&
           !visitado.has(`${x}, ${y + 1}`) //no verifica para 2,2. Es nulo
         ) {
-          valor.push(tablero.tablero[x][y + 1]);
+          valor.push({ x, y: y + 1 });
           //cola.push({ x, y: y + 1 });
         }
         if (
@@ -130,7 +129,7 @@ class BuscaPalabras {
           tablero.tablero[x - 1][y] != undefined &&
           !visitado.has(`${x - 1}. ${y}`) //no verifica para 1,1, es nulo
         ) {
-          valor.push(tablero.tablero[x - 1][y]);
+          valor.push({ x: x - 1, y });
           //cola.push({ x: x - 1, y });
         }
         if (valor.length !== 0) {
@@ -138,7 +137,7 @@ class BuscaPalabras {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error en el algoritmo BFS: ", error);
     }
   }
 }
