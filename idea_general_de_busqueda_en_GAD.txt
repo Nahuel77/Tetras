@@ -4,17 +4,32 @@ paso a paso como funcionaria la busqueda de palabras:
 
 *se posiciona en el mapa que memoriza el tablero.                                          -hecho
 
-*se realiza una busqueda por amplitud BFS.                                                 -hecho
+*se realiza una busqueda por amplitud BFS. Pero solo de los primeros 4 vecinos             -hecho
+mas cercanos si es que existen                                                 
 
-*agrega a una lista, si existen, los bloques de letra adyacentes a esa ultima pieza        -hecho
+*agrega a una lista, si existen, las coordenadas de los bloques de                         -hecho
+letra adyacentes a esa ultima pieza        
 
-*toma uno por uno los elementos de esa lista y los busca en el GAD devolviendo su          -hecho
-ubicación dentro del GAD
+*toma la letra que origina la busqueda BFS y la busca en el GAD devolviendo sus            -hecho
+hermanos en coordenadas Y (filas).
+Si la nueva ficha en el Tablero es L, la busqueda resultara en "F" & "O"
 
-*a esa coordenada le resta y le suma 1 a la coordenada "y" para conocer la letra anterior  -por hacer
-y posterior a esa palabra, si exiten ambas e indexa a una lista de visitadas las
-coordenadas del GAD recorridas en esa suma y resta de 1
+/*
+  0 1 2 3 4 5 6 ::X
+0 - - F - - - -
+1 - - L - - - -
+2 - - O - - - -
+3 - - R - - - -
+::
+Y
+ejemplo de como se poscionan las palabras en el GAD (Grafo Aciclico Dirigido)
+*/
 
-*a esas letras (posterior y anterior) ... en este punto es posible que se me ocurra una
-solucion mas rapida... revisar BFS
-para que busque por mas amplitud y compare en el -+1 del paso previo
+*De las coordenadas generadas por el BFS, se mira que letras tienen esas coordenadas       -hecho
+en el tablero y si hay coincidencia entre esas letras vecinas a "L" (en el ejemplo
+anteior) y las hermanas de "L" en el GAD.
+
+*Se devuelven esas coordenadas de las vecinas a "L" en el tablero a la funcion de          -por hacer
+busqueda BFS como nuevos origenes, asegurandose de no repetir hubicaciones,
+Por ejemplo la de origen, "L"
+El ciclo se interrumpe si no hay concidencia o se forma una palabra completa.    //// seguir mañana ////
