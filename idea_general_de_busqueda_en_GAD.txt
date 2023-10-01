@@ -12,7 +12,8 @@ letra adyacentes a esa ultima pieza
 
 *toma la letra que origina la busqueda BFS y la busca en el GAD devolviendo sus            -hecho
 hermanos en coordenadas Y (filas).
-Si la nueva ficha en el Tablero es L, la busqueda resultara en "F" & "O"
+Si la nueva ficha, (llamada letraInicial, no por ser la inicial de una palabra sino la que
+inicia el ciclo de busqueda) en el Tablero es "L", la busqueda resultara en "F" & "O"
 
 /*
   0 1 2 3 4 5 6 ::X
@@ -29,7 +30,27 @@ ejemplo de como se poscionan las palabras en el GAD (Grafo Aciclico Dirigido)
 en el tablero y si hay coincidencia entre esas letras vecinas a "L" (en el ejemplo
 anteior) y las hermanas de "L" en el GAD.
 
-*Se devuelven esas coordenadas de las vecinas a "L" en el tablero a la funcion de          -por hacer
-busqueda BFS como nuevos origenes, asegurandose de no repetir hubicaciones,
-Por ejemplo la de origen, "L"
+*Se devuelven esas coordenadas de las vecinas a "L" en el tablero, a la funcion de          -por hacer
+busqueda BFS ¿como nuevos origenes?(posibilidad), asegurandose de no repetir hubicaciones,
+Por ejemplo la de origen, "L". IMPORTANTE! Explorar la opcion de retornar las coordenadas
+con un id (que podria ser la coordenada Y) de la palabra en donde hay coincidencia.
+
+Ejemplo: Suponer que se lanza la letra "A" y se posiciona entre "N" & "R". buscarEnGAD encuentra 5 coincidencias con 2 palabras.
+1 coincidencia para "MANGO" donde la "A" es vecina de la "N" pero tambien en "NARANJA" donde la primer "A" es vecina de "N" & "R",
+la segunda de "R" y "N"
+El set retornado hasta el momento es [{3, 0}, {3, 0}, {5, 0}, {5, 0}, {5, 0}] (en este punto doy coordenadas de una test real)
+el set es el de los vecinos en el tablero (no en GAD) que coinciden {3, 0} para "N" y {5,0} para "R"
+En este punto podria parecer innecesario que retorne repetidas las ubicaciones, repitiendolas en relacion al numero de coincidencias
+en GAD. Pero agregando como id la palabra de donde coinciden en gad podria prevenir errores futuros.
+[[{x, y}, {i, j}]] x, y en tablero y i, j en GAD
+[[{3, 0}, {1, 2}], [{3, 0}, {2, 0}], [{5, 0}, {2, 2}], [{5, 0}. {2, 2}], [{5, 0}, {2, 4}]]
+
+[ 'r',  'm', 'n',  's',  'c']
+[ 'í',  'a', 'a',  'i',  'i']
+[ 'o',  'n', 'r',  'l',  'u']
+[null,  'g', 'a',  'l',  'd']
+[null,  'o', 'n',  'a',  'a']
+[null, null, 'j', null,  'd']
+[null, null, 'a', null, null]
+
 El ciclo se interrumpe si no hay concidencia o se forma una palabra completa.    //// seguir mañana ////

@@ -48,36 +48,57 @@ class BuscaPalabras {
   }
 
   async buscarEnGAD(valor, x, y) {
+    console.log(this.GAD);
     try {
       const letraInicial = tablero.tablero[x][y].toLowerCase();
-
+      const setXYaBFS = [];
       for (let indexX = 0; indexX < this.filasGAD; indexX++) {
         for (let indexY = 0; indexY < this.columnasGAD; indexY++) {
           if (this.GAD[indexX][indexY] == letraInicial) {
+            //recorre el GAD buscando letraInicial (la ultima ficha en caer al tablero)
             if (
+              //mira una letra antes y una despues de la encontrada en GAD
               indexX - 1 >= 0 &&
               this.GAD[indexX - 1][indexY] != undefined &&
-              typeof this.GAD[indexX - 1][indexY] === "string" 
+              typeof this.GAD[indexX - 1][indexY] === "string"
             ) {
-              valor.forEach(setXY => {
-                if (tablero.tablero[setXY.x][setXY.y].toLowerCase() === this.GAD[indexX - 1][indexY]) {
-                  console.log("aqui")//bfs(setXY.x, setXY.y)  aqui retomo mañana.!!!!!!!!!!
+              valor.forEach((setXY) => {
+                //mira si los vecinos de la letra inicial EN EL TABLERO, son iguales a los vecinos de la letraInicial encontrada en GAD
+                if (
+                  tablero.tablero[setXY.x][setXY.y].toLowerCase() ===
+                  this.GAD[indexX - 1][indexY]
+                ) {
+                  setXYaBFS.push([
+                    { x: setXY.x, y: setXY.y },
+                    { i: indexX - 1, j: indexY },
+                  ]); //Si hay coincidencia guarda los vecinos de la letrainicial del tablero en un arreglo para devolverlos a BFS (posible solucion a seguir el hilo de la misma palabra, pasar tambien indexX -1, indexY junto con el setXY.x setXY.y)
                 }
               });
             }
             if (
+              //repite lo de arriba pero mirando al vecino de abajo en GAD
               indexX + 1 <= this.filasGAD &&
               this.GAD[indexX + 1][indexY] != undefined &&
               typeof this.GAD[indexX + 1][indexY] === "string"
             ) {
-              valor.forEach(setXY => {
-                if (tablero.tablero[setXY.x][setXY.y].toLowerCase() === this.GAD[indexX + 1][indexY]) {
-                  console.log("match")
+              valor.forEach((setXY) => {
+                if (
+                  tablero.tablero[setXY.x][setXY.y].toLowerCase() ===
+                  this.GAD[indexX + 1][indexY]
+                ) {
+                  setXYaBFS.push([
+                    { x: setXY.x, y: setXY.y },
+                    { i: indexX + 1, j: indexY },
+                  ]);
                 }
               });
             }
           }
         }
+      }
+      if (setXYaBFS.length != 0) {
+        //si se encontraron coincidencias entre los vecinos de la letraInicial, en el tablero y en el GAD, retornará el set {setXY.x, setXY.y} guardados en setXYaBFS
+        return setXYaBFS;
       }
     } catch (error) {
       console.error("Problema al buscar en GAD: ", error);
@@ -132,8 +153,13 @@ class BuscaPalabras {
           valor.push({ x: x - 1, y });
           //cola.push({ x: x - 1, y });
         }
-        if (valor.length !== 0) {
-          this.buscarEnGAD(valor, x, y);
+        const res = await this.buscarEnGAD(valor, x, y);
+        if (res) {
+          //Si encontró que los vecinos coinciden para formar una palabra
+          console.log(res);
+          res.forEach((resXY) => {
+            cola.push({x: resXY[0].x, y: resXY[0].y});
+          });
         }
       }
     } catch (error) {
