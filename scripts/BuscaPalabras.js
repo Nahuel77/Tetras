@@ -48,7 +48,7 @@ class BuscaPalabras {
   }
 
   async buscarEnGAD(valor, x, y) {
-    console.log(this.GAD);
+    //console.log(this.GAD);
     try {
       const letraInicial = tablero.tablero[x][y].toLowerCase();
       const setXYaBFS = [];
@@ -78,7 +78,7 @@ class BuscaPalabras {
             if (
               //repite lo de arriba pero mirando al vecino de abajo en GAD
               indexX + 1 <= this.filasGAD &&
-              this.GAD[indexX + 1][indexY] != undefined &&
+              this.GAD[indexX + 1][indexY] !== undefined &&
               typeof this.GAD[indexX + 1][indexY] === "string"
             ) {
               valor.forEach((setXY) => {
@@ -108,8 +108,17 @@ class BuscaPalabras {
   async BFS(x, y) {
     //entra valor x,y / 2,1 = "R"
     try {
+      const palabra = [];
       const cola = [];
       const visitado = new Set();
+
+      for (let i = 0; i < this.filasGAD; i++) {
+        palabra[i] = [];
+        for (let j = 0; j < this.columnasGAD; j++) {
+          palabra[i][j] = null;
+        }
+      }
+
       cola.push({ x, y }); //entra 2,1 a la cola
       while (cola.length > 0) {
         //si hay elemento en cola hace...
@@ -156,14 +165,22 @@ class BuscaPalabras {
         const res = await this.buscarEnGAD(valor, x, y);
         if (res) {
           //Si encontró que los vecinos coinciden para formar una palabra
-          console.log(res);
+          //console.log(res);
           res.forEach((resXY) => {
-            cola.push({x: resXY[0].x, y: resXY[0].y});
+            cola.push({ x: resXY[0].x, y: resXY[0].y });
+          });
+
+          
+
+          res.forEach((setPalCor) => {
+            palabra[setPalCor[1].i][setPalCor[1].j] =
+              tablero.tablero[setPalCor[0].x][setPalCor[0].y];
+            console.log(palabra);
           });
         }
       }
     } catch (error) {
-      console.log("Error en el algoritmo BFS: ", error);
+      console.error("Error en el algoritmo BFS: ", error);
     }
   }
 }

@@ -89,7 +89,7 @@ class Tablero {
         if ((columna + fila) % 2 == 0) {
           fill("black");
         } else {
-          fill("#003");
+          fill("#00"+fila);
         }
         let c = this.coordenada(columna, fila);
         rect(c.x, c.y, this.lado_celda);
